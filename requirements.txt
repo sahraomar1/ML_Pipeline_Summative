@@ -1,0 +1,9 @@
+tensorflow==2.21.0; sys_platform != "linux"
+tensorflow-cpu==2.21.0; sys_platform == "linux"
+fastapi
+uvicorn
+python-multipart
+pillow
+numpy
+scikit-learn
+h5py
