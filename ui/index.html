@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vehicle Damage Claim Triage</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Vehicle Damage Claim Triage</h1>
+    <p>Upload a photo of a damaged car. The model says how bad the damage is and where the claim should go.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>1. Model status</h2>
+      <div class="tiles">
+        <div class="tile"><span>Status</span><strong id="status">...</strong></div>
+        <div class="tile"><span>Up-time</span><strong id="uptime">...</strong></div>
+        <div class="tile"><span>Model last trained</span><strong id="last-trained">...</strong></div>
+        <div class="tile"><span>New images waiting</span><strong id="waiting">...</strong></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Predict</h2>
+      <p>Choose one car photo.</p>
+      <input type="file" id="predict-file" accept="image/*">
+      <button id="predict-button">Predict</button>
+      <div class="result-row">
+        <img id="preview" alt="">
+        <div id="predict-result"></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>3. Data insights</h2>
+      <p>These charts describe the training photos for each damage level.</p>
+      <div class="charts">
+        <div><canvas id="chart-count"></canvas></div>
+        <div><canvas id="chart-brightness"></canvas></div>
+        <div><canvas id="chart-contrast"></canvas></div>
+        <div><canvas id="chart-edges"></canvas></div>
+      </div>
+      <ul id="story"></ul>
+    </section>
+
+    <section>
+      <h2>4. Upload new data and retrain</h2>
+      <p>Choose many photos of the same damage level, pick the label, then upload.</p>
+      <select id="upload-label">
+        <option value="minor">minor</option>
+        <option value="moderate">moderate</option>
+        <option value="severe">severe</option>
+      </select>
+      <input type="file" id="upload-files" accept="image/*" multiple>
+      <button id="upload-button">Upload images</button>
+      <p id="upload-result"></p>
+      <button id="retrain-button">Retrain model</button>
+      <p id="retrain-result"></p>
+    </section>
+
+    <section>
+      <h2>5. Evaluate the live model</h2>
+      <p>Test the model that is running now on the test photos.</p>
+      <button id="evaluate-button">Run evaluation</button>
+      <div id="evaluate-result"></div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
