@@ -1,10 +1,13 @@
 """Predict the damage level of one photo."""
 
+import threading
+
 import numpy as np
 
 from src.model import MODEL_PATH, load_saved_model
 from src.preprocessing import CLASS_NAMES, load_image
 
+# What the insurance team should do for each damage level
 CLAIM_ROUTES = {
     "minor": "Fast track - approve a repair quote automatically.",
     "moderate": "Send to a claims adjuster for review.",
@@ -12,14 +15,17 @@ CLAIM_ROUTES = {
 }
 
 _cache = {"model": None, "file_time": None}
+_lock = threading.Lock()
 
 
 def get_model():
     """Load the model once. Load it again only if the file changed."""
     file_time = MODEL_PATH.stat().st_mtime
     if _cache["model"] is None or _cache["file_time"] != file_time:
-        _cache["model"] = load_saved_model()
-        _cache["file_time"] = file_time
+        with _lock:  # only one request loads the model, the others wait
+            if _cache["model"] is None or _cache["file_time"] != file_time:
+                _cache["model"] = load_saved_model()
+                _cache["file_time"] = file_time
     return _cache["model"]
 
 

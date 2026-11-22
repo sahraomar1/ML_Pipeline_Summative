@@ -14,7 +14,7 @@ from PIL import UnidentifiedImageError
 from src import database, retrain
 from src.insights import dataset_insights
 from src.model import MODEL_PATH, evaluate_model, load_saved_model
-from src.prediction import predict_image
+from src.prediction import get_model, predict_image
 from src.preprocessing import (CLASS_NAMES, DATA_DIR, IMAGE_TYPES, ROOT_DIR, UPLOAD_DIR,
                                load_test_data)
 
@@ -26,7 +26,7 @@ app = FastAPI(title="Vehicle Damage Claim Triage")
 app.mount("/static", StaticFiles(directory=UI_DIR), name="static")
 database.create_tables()
 database.fail_unfinished_runs()
-
+get_model()
 
 def to_iso(timestamp):
     return datetime.fromtimestamp(timestamp, timezone.utc).isoformat(timespec="seconds")
