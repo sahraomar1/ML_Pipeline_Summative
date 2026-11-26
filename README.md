@@ -1,6 +1,6 @@
 # Vehicle Damage Claim Triage
 
-**Video demo (YouTube):** 
+**Video demo (YouTube):** https://youtu.be/luJPTPC8gTs
 **Live app (Azure):** https://ml-pipeline-summative.lemonrock-cdc9768c.southafricanorth.azurecontainerapps.io
 **GitHub repo:** https://github.com/sahraomar1/ML_Pipeline_Summative
 
@@ -95,4 +95,4 @@ The app was first deployed on the free Render plan. Everything worked except **R
 
 - Uploaded photos and the database are lost when the app restarts.
 - The first visit after a quiet period can be slow.
-- Accuracy is about 67%, and moderate damage is the hardest to find.
+- Moderate damage is the hardest to find.
